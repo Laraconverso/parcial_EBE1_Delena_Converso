@@ -9,3 +9,22 @@ spring:
     username: usr-movie
     password: pwd-movie
 
+jpa:
+  hibernate.ddl-auto: update
+  generate-ddl: true
+  show-sql: true
+
+info:
+  application:
+    name: api-movie
+
+
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
