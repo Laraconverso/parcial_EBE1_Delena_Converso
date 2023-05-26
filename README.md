@@ -1,3 +1,4 @@
-# esp-backend-i-parcial-enunciado
-Repositorio con el enunciado del examen de Esp Backend I
+# esp-backend-i-parcial
+Repositorio con el examen de Esp Backend I resuelto por
+Juan Ignacio Delena y Lara Converso
 
