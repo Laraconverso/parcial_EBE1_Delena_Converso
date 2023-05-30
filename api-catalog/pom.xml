@@ -6,6 +6,7 @@
         <groupId>com.dh</groupId>
 		<artifactId>api-examen</artifactId>
 		<version>0.0.1</version>
+        <relativePath/><!--  lookup parent from repository  -->
     </parent>
     <packaging>jar</packaging>
     <groupId>com.dh</groupId>
