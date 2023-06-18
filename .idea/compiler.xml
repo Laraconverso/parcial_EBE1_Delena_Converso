@@ -12,6 +12,7 @@
         <module name="config-server" />
         <module name="api-movie" />
         <module name="eureka-server" />
+        <module name="api-serie" />
       </profile>
     </annotationProcessing>
   </component>
@@ -20,6 +21,7 @@
       <module name="api-catalog" options="-parameters" />
       <module name="api-gateway" options="-parameters" />
       <module name="api-movie" options="-parameters" />
+      <module name="api-serie" options="-parameters" />
       <module name="config-server" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
     </option>

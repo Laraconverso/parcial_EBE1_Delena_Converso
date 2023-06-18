@@ -29,6 +29,9 @@
 			api-movie
 		</module>
 		<module>
+			api-serie
+		</module>
+		<module>
 			eureka-server
 		</module>
 		<module>
