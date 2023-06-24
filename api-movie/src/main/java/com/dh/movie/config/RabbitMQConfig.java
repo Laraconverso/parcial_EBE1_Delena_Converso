@@ -1,8 +1,5 @@
-package com.dh.catalog.config;
+package com.dh.movie.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -15,34 +12,10 @@ public class RabbitMQConfig {
 
     public static final String EXCHANGE_NAME = "backendExchange";
     public static final String TOPIC_MOVIE_CREADA = "com.dh.backend.moviecreada";
-    public static final String TOPIC_SERIE_CREADA = "com.dh.backend.seriecreada";
-
-    public static final String QUEUE_MOVIE_CREADO ="queueMovieCreada";
-    public static final String QUEUE_SERIE_CREADO ="queueSerieCreada";
 
     @Bean
     public TopicExchange appExchange() {
         return new TopicExchange(EXCHANGE_NAME);
-    }
-
-    @Bean
-    public Queue queueMovieCreada(){
-        return new Queue(QUEUE_MOVIE_CREADO);
-    }
-
-    @Bean
-    public Queue queueSerieCreada(){
-        return new Queue(QUEUE_SERIE_CREADO);
-    }
-
-    @Bean
-    public Binding declareBindingSpecificMovie(){
-        return BindingBuilder.bind(queueMovieCreada()).to(appExchange()).with(TOPIC_MOVIE_CREADA);
-    }
-
-    @Bean
-    public Binding declareBindingSpecificSerie(){
-        return BindingBuilder.bind(queueSerieCreada()).to(appExchange()).with(TOPIC_SERIE_CREADA);
     }
 
     @Bean
@@ -56,4 +29,5 @@ public class RabbitMQConfig {
     public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
+
 }

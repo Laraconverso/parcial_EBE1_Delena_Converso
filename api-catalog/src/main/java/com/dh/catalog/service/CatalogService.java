@@ -4,6 +4,7 @@ import com.dh.catalog.client.MovieServiceClient;
 import com.dh.catalog.client.SerieServiceClient;
 import com.dh.catalog.model.CatalogDTO;
 import com.dh.catalog.model.serie.Serie;
+import com.dh.catalog.repository.CatalogRepository;
 import com.dh.catalog.repository.MovieRepository;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
@@ -43,6 +44,8 @@ public class CatalogService {
         return movies;
     }
     public List<MovieServiceClient.MovieDto> findMoviesFallBack(String genre, Throwable t) throws Exception {
+//        CatalogRepository.findCatalogByGenre(genre);
+        System.out.println("API-MOVIE-DOWN");
         throw new Exception("Movie not found");
     }
 
@@ -55,6 +58,8 @@ public class CatalogService {
     }
 
     public List<Serie> findSeriesFallBack(String genre, Throwable t) throws Exception {
+//        CatalogRepository.findCatalogByGenre(genre);
+        System.out.println("API-SERIE-DOWN");
         throw new Exception("Serie Not found");
     }
 

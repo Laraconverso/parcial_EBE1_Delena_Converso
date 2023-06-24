@@ -1,5 +1,6 @@
 package com.dh.apiserie.controller;
 
+import com.dh.apiserie.event.SerieCreadaEventProducer;
 import com.dh.apiserie.model.Serie;
 import com.dh.apiserie.service.SerieService;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +13,12 @@ import java.util.List;
 public class SerieController {
 
     private SerieService serieService;
+    private final SerieCreadaEventProducer serieCreadaEventProducer;
 
-    public SerieController(SerieService serieService) {
+
+    public SerieController(SerieService serieService, SerieCreadaEventProducer serieCreadaEventProducer) {
         this.serieService = serieService;
+        this.serieCreadaEventProducer = serieCreadaEventProducer;
     }
 
 
@@ -24,8 +28,10 @@ public class SerieController {
     }
 
     @PostMapping("/save")
-    ResponseEntity<Serie> saveMovie(@RequestBody Serie serie) {
-        return ResponseEntity.ok().body(serieService.save(serie));
+    ResponseEntity<String> saveMovie(@RequestBody Serie serie) throws Exception {
+        return ResponseEntity.ok().body(serieService.create(serie));
     }
+
+
 
 }
