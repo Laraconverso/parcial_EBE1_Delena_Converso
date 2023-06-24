@@ -25,9 +25,9 @@ public class ApiMovieApplication {
              return;
         }
 
-          repository.save(new Movie(null, "Pelicula 1", "Terror", "www.netflix.com"));
-           repository.save(new Movie(null, "Pelicula 2", "Terror", "www.netflix.com"));
-           repository.save(new Movie(null, "Pelicula 3", "Comedia", "www.netflix.com"));
+          repository.save(new Movie(null, "Pelicula 1", "terror", "www.netflix.com"));
+           repository.save(new Movie(null, "Pelicula 2", "terror", "www.netflix.com"));
+           repository.save(new Movie(null, "Pelicula 3", "comedia", "www.netflix.com"));
           repository.save(new Movie(null, "Pelicula 4", "Ficcion", "www.netflix.com"));
        };
     }

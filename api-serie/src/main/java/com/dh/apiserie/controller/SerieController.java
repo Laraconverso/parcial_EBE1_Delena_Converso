@@ -18,15 +18,14 @@ public class SerieController {
     }
 
 
-
     @GetMapping("/{genre}")
     ResponseEntity<List<Serie>> getSerieByGenre(@PathVariable String genre){
         return ResponseEntity.ok(serieService.getSeriesBygGenre(genre));
     }
 
-    @PostMapping
-    void createNewSerie(@RequestBody Serie serie) {
-         serieService.createSerie(serie);
+    @PostMapping("/save")
+    ResponseEntity<Serie> saveMovie(@RequestBody Serie serie) {
+        return ResponseEntity.ok().body(serieService.save(serie));
     }
 
 }
