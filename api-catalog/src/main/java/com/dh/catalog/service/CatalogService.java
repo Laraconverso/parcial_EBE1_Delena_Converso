@@ -5,12 +5,14 @@ import com.dh.catalog.client.SerieServiceClient;
 import com.dh.catalog.model.CatalogDTO;
 import com.dh.catalog.model.serie.Serie;
 import com.dh.catalog.repository.CatalogRepository;
-import com.dh.catalog.repository.MovieRepository;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Autowired;
+
+
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,18 +20,25 @@ import java.util.List;
 public class CatalogService {
 
     private final MovieServiceClient movieServiceClient;
-
     private final SerieServiceClient serieServiceClient;
+    private final CatalogRepository catalogRepository;
 
+    @Autowired
+    @Lazy
+    private CatalogService self;
 
-//
-//    @Autowired
-//    @Lazy
-//    private CatalogService self;
-
-    public CatalogService(SerieServiceClient serieServiceClient, MovieServiceClient movieServiceClient) {
+    @Autowired
+    public CatalogService(SerieServiceClient serieServiceClient, MovieServiceClient movieServiceClient, CatalogRepository catalogRepository) {
         this.serieServiceClient = serieServiceClient;
         this.movieServiceClient = movieServiceClient;
+        this.catalogRepository = catalogRepository;
+    }
+
+    public CatalogDTO create(String genre){
+        List<MovieServiceClient.MovieDto> listaPeliculas = self.findMoviesByGenre(genre);
+        List<Serie>  listaSeries = self.findSeriesByGenre(genre);
+        CatalogDTO c = new CatalogDTO(genre, listaPeliculas, listaSeries);
+        return catalogRepository.save(c);
     }
 
 
@@ -39,12 +48,13 @@ public class CatalogService {
 
     @Retry(name = "retryCatalog")
     @CircuitBreaker(name = "catalogcircuit", fallbackMethod = "findMoviesFallBack")
-    private List<MovieServiceClient.MovieDto> findAllMoviesByGenre(String genre) {
+    public List<MovieServiceClient.MovieDto> findMoviesByGenre(String genre) {
         var movies = movieServiceClient.getMovieByGenre(genre);
         return movies;
     }
+
     public List<MovieServiceClient.MovieDto> findMoviesFallBack(String genre, Throwable t) throws Exception {
-//        CatalogRepository.findCatalogByGenre(genre);
+        catalogRepository.findByGenre(genre);
         System.out.println("API-MOVIE-DOWN");
         throw new Exception("Movie not found");
     }
@@ -52,22 +62,17 @@ public class CatalogService {
 
     @Retry(name = "retryCatalog")
     @CircuitBreaker(name = "catalogcircuit", fallbackMethod = "findSeriesFallBack")
-    private List<Serie> findAllSeriesByGenre(String genre) {
+    public List<Serie> findSeriesByGenre(String genre) {
         var series = serieServiceClient.getSerieByGenre(genre);
         return series;
     }
 
     public List<Serie> findSeriesFallBack(String genre, Throwable t) throws Exception {
-//        CatalogRepository.findCatalogByGenre(genre);
+        catalogRepository.findByGenre(genre);
         System.out.println("API-SERIE-DOWN");
         throw new Exception("Serie Not found");
     }
 
-    public CatalogDTO create(String genre){
-        var listaPeliculas = findAllMoviesByGenre(genre);
-        var listaSeries = findAllSeriesByGenre(genre);
-        return new CatalogDTO(genre, listaPeliculas, listaSeries);
-    }
 
 
 

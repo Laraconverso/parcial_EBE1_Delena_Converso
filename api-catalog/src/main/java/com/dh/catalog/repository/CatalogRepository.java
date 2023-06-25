@@ -14,6 +14,7 @@ import java.util.OptionalLong;
 
 @Repository
 public interface CatalogRepository extends MongoRepository<CatalogDTO, String> {
+    Optional<CatalogDTO> findByGenre(String genre);
 
     static void saveMsjMovie(MovieCreadaEventConsumer.Data message) {
     }
@@ -21,7 +22,6 @@ public interface CatalogRepository extends MongoRepository<CatalogDTO, String> {
     static void saveMsjSerie(SerieCreadaEventConsumer.Data message) {
     }
 
-//  @Query("{'genre': ?0}")
-//  Optional<CatalogDTO> findCatalogByGenre(String genre);
+
 
 }
