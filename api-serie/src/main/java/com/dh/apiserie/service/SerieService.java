@@ -4,7 +4,7 @@ import com.dh.apiserie.event.SerieCreadaEventProducer;
 import com.dh.apiserie.model.Serie;
 import com.dh.apiserie.repository.SerieRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 
@@ -20,20 +20,17 @@ public class SerieService {
         this.serieCreadaEventProducer = serieCreadaEventProducer;
     }
 
-
-    public List<Serie> getSeriesBygGenre(String genre) {
+    public List<Serie> getSeriesByGenre(String genre) {
         return repository.findAllByGenre(genre);
     }
 
-    public Serie save(Serie serie) {
-        return repository.save(serie);
+
+    public Serie createSerie(Serie serie) {
+        repository.save(serie);
+        serieCreadaEventProducer.publishSerieCreada(new SerieCreadaEventProducer.Data(serie.getId(),serie.getName(), serie.getGenre()));
+        System.out.println("Guardando la serie" + serie.getName());
+        return serie;
     }
 
-    @Transactional
-    public String create(Serie entity) throws Exception {
-        repository.save(entity);
-        serieCreadaEventProducer.publishSerieCreada(new SerieCreadaEventProducer.Data(entity.getId(),entity.getName(), entity.getGenre()));
-        return entity.getId().toString();
-    }
 
 }

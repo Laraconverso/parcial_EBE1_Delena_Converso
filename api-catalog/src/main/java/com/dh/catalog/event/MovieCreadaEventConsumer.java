@@ -1,7 +1,7 @@
 package com.dh.catalog.event;
 
-import com.dh.catalog.repository.CatalogRepository;
-import com.dh.catalog.service.CatalogService;
+import com.dh.catalog.model.movie.Movie;
+import com.dh.catalog.repository.MovieRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,13 +13,21 @@ import com.dh.catalog.config.RabbitMQConfig;
 @Component
 public class MovieCreadaEventConsumer {
 
-    private CatalogService catalogService;
-    private CatalogRepository catalogRepository;
+    private MovieRepository movieRepository;
 
-    @RabbitListener(queues = RabbitMQConfig.QUEUE_MOVIE_CREADO)
+    public MovieCreadaEventConsumer(MovieRepository movieRepository){
+        this.movieRepository = movieRepository;
+    }
+
+    @RabbitListener(queues = RabbitMQConfig.QUEUE_MOVIE_CREADA)
     public void listen(MovieCreadaEventConsumer.Data message){
+        Movie movie = new Movie();
+        movie.setName(message.getName());
+        movie.setGenre(message.getGenre());
+        movie.setId(message.getId().toString());
+
         System.out.print("NOMBRE DE PELICULA "+ message.name);
-        CatalogRepository.saveMsjMovie(message);
+        movieRepository.save(movie);
     }
 
 

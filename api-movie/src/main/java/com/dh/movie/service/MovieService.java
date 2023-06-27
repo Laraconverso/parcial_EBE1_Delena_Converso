@@ -26,15 +26,13 @@ public class MovieService {
         return movieRepository.findByGenre(genre);
     }
 
+
     public Movie save(Movie movie) {
-        return movieRepository.save(movie);
+        movieRepository.save(movie);
+        movieCreadaEventProducer.publishMovieCreada(new MovieCreadaEventProducer.Data(movie.getId(),movie.getName(), movie.getGenre()));
+        System.out.println("Guardando pelicula: " + movie.getName());
+        return movie;
     }
 
-    @Transactional
-    public String create(Movie entity) throws Exception {
-        movieRepository.save(entity);
-        movieCreadaEventProducer.publishMovieCreada(new MovieCreadaEventProducer.Data(entity.getId(),entity.getName(), entity.getGenre()));
-        return entity.getId().toString();
-    }
 
 }

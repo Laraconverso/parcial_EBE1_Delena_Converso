@@ -28,8 +28,8 @@ public class MovieController {
     }
 
     @PostMapping("/save")
-    ResponseEntity<String> saveMovie(@RequestBody Movie movie) throws Exception {
-        return ResponseEntity.ok().body(movieService.create(movie));
+    ResponseEntity<Movie> saveMovie(@RequestBody Movie movie) {
+        return ResponseEntity.ok().body(movieService.save(movie));
     }
 
 

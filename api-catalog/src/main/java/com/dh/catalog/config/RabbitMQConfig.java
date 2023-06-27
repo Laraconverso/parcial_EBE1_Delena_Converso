@@ -17,8 +17,8 @@ public class RabbitMQConfig {
     public static final String TOPIC_MOVIE_CREADA = "com.dh.backend.moviecreada";
     public static final String TOPIC_SERIE_CREADA = "com.dh.backend.seriecreada";
 
-    public static final String QUEUE_MOVIE_CREADO ="queueMovieCreada";
-    public static final String QUEUE_SERIE_CREADO ="queueSerieCreada";
+    public static final String QUEUE_MOVIE_CREADA ="queueMovieCreada";
+    public static final String QUEUE_SERIE_CREADA ="queueSerieCreada";
 
     @Bean
     public TopicExchange appExchange() {
@@ -27,12 +27,12 @@ public class RabbitMQConfig {
 
     @Bean
     public Queue queueMovieCreada(){
-        return new Queue(QUEUE_MOVIE_CREADO);
+        return new Queue(QUEUE_MOVIE_CREADA);
     }
 
     @Bean
     public Queue queueSerieCreada(){
-        return new Queue(QUEUE_SERIE_CREADO);
+        return new Queue(QUEUE_SERIE_CREADA);
     }
 
     @Bean

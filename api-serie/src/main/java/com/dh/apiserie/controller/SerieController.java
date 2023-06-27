@@ -24,12 +24,12 @@ public class SerieController {
 
     @GetMapping("/{genre}")
     ResponseEntity<List<Serie>> getSerieByGenre(@PathVariable String genre){
-        return ResponseEntity.ok(serieService.getSeriesBygGenre(genre));
+        return ResponseEntity.ok(serieService.getSeriesByGenre(genre));
     }
 
     @PostMapping("/save")
-    ResponseEntity<String> saveMovie(@RequestBody Serie serie) throws Exception {
-        return ResponseEntity.ok().body(serieService.create(serie));
+    ResponseEntity<Serie> createNewSerie(@RequestBody Serie serie) {
+        return ResponseEntity.ok().body(serieService.createSerie(serie));
     }
 
 

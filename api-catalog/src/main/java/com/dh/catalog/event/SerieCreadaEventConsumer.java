@@ -1,7 +1,9 @@
 package com.dh.catalog.event;
 
 import com.dh.catalog.config.RabbitMQConfig;
-import com.dh.catalog.repository.CatalogRepository;
+import com.dh.catalog.model.serie.Serie;
+import com.dh.catalog.repository.MovieRepository;
+import com.dh.catalog.repository.SerieRepository;
 import com.dh.catalog.service.CatalogService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,12 +14,21 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SerieCreadaEventConsumer {
-    private CatalogService catalogService;
 
-    @RabbitListener(queues = RabbitMQConfig.QUEUE_SERIE_CREADO)
+    private SerieRepository serieRepository;
+
+    public SerieCreadaEventConsumer(SerieRepository serieRepository){
+        this.serieRepository = serieRepository;
+    }
+
+
+    @RabbitListener(queues = RabbitMQConfig.QUEUE_SERIE_CREADA)
     public void listen(SerieCreadaEventConsumer.Data message){
+        Serie serie = new Serie();
+        serie.setName(message.getName());
+        serie.setGenre(message.getGenre());
         System.out.print("NOMBRE DE SERIE "+ message.name);
-        CatalogRepository.saveMsjSerie(message);
+        serieRepository.save(serie);
     }
 
 
