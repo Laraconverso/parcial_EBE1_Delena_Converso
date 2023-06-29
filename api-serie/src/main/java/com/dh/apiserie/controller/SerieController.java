@@ -15,12 +15,10 @@ public class SerieController {
     private SerieService serieService;
     private final SerieCreadaEventProducer serieCreadaEventProducer;
 
-
     public SerieController(SerieService serieService, SerieCreadaEventProducer serieCreadaEventProducer) {
         this.serieService = serieService;
         this.serieCreadaEventProducer = serieCreadaEventProducer;
     }
-
 
     @GetMapping("/{genre}")
     ResponseEntity<List<Serie>> getSerieByGenre(@PathVariable String genre){
@@ -31,7 +29,5 @@ public class SerieController {
     ResponseEntity<Serie> createNewSerie(@RequestBody Serie serie) {
         return ResponseEntity.ok().body(serieService.createSerie(serie));
     }
-
-
 
 }

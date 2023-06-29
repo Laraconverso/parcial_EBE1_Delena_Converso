@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class CatalogController {
 
 	private final CatalogService catalogService;
-
 	@Autowired
 	public CatalogController(CatalogService catalogService) {
 		this.catalogService = catalogService;

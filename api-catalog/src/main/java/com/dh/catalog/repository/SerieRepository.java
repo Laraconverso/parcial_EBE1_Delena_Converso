@@ -11,9 +11,6 @@ import java.util.List;
 @Repository
 public interface SerieRepository extends MongoRepository<Serie, String> {
 
-    static void save(SerieCreadaEventConsumer.Data message) {
-    }
-
     @Query("{'genre': ?0}")
     List<Serie> findAllByGenre(String genre);
 

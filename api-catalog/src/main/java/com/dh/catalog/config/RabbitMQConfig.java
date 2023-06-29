@@ -29,7 +29,6 @@ public class RabbitMQConfig {
     public Queue queueMovieCreada(){
         return new Queue(QUEUE_MOVIE_CREADA);
     }
-
     @Bean
     public Queue queueSerieCreada(){
         return new Queue(QUEUE_SERIE_CREADA);
@@ -39,7 +38,6 @@ public class RabbitMQConfig {
     public Binding declareBindingSpecificMovie(){
         return BindingBuilder.bind(queueMovieCreada()).to(appExchange()).with(TOPIC_MOVIE_CREADA);
     }
-
     @Bean
     public Binding declareBindingSpecificSerie(){
         return BindingBuilder.bind(queueSerieCreada()).to(appExchange()).with(TOPIC_SERIE_CREADA);
@@ -51,7 +49,6 @@ public class RabbitMQConfig {
         rabbitTemplate.setMessageConverter(producerJackson2MessageConverter());
         return rabbitTemplate;
     }
-
     @Bean
     public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
         return new Jackson2JsonMessageConverter();

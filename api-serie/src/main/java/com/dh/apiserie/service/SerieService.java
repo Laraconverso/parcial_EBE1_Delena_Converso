@@ -12,7 +12,6 @@ import java.util.List;
 public class SerieService {
 
     private final SerieRepository repository;
-
     private final SerieCreadaEventProducer serieCreadaEventProducer;
 
     public SerieService(SerieRepository repository, SerieCreadaEventProducer serieCreadaEventProducer) {
@@ -31,6 +30,5 @@ public class SerieService {
         System.out.println("Guardando la serie" + serie.getName());
         return serie;
     }
-
 
 }

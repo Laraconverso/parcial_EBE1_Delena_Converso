@@ -31,7 +31,6 @@ public class SerieCreadaEventConsumer {
         serieRepository.save(serie);
     }
 
-
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter

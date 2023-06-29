@@ -24,7 +24,6 @@ public class CatalogService {
     private final SerieServiceClient serieServiceClient;
 
     private final SerieRepository serieRepository;
-
     private final MovieRepository movieRepository;
 
     @Autowired
@@ -65,7 +64,6 @@ public class CatalogService {
         return movies;
     }
 
-
     @Retry(name = "retryCatalog")
     @CircuitBreaker(name = "catalogcircuit", fallbackMethod = "findSeriesFallBack")
     public List<Serie> findSeriesByGenre(String genre) {
@@ -78,11 +76,6 @@ public class CatalogService {
         var series =  serieRepository.findAllByGenre(genre);
         return series;
     }
-
-
-
-
-
 
 
 }

@@ -10,7 +10,6 @@ import java.util.List;
 
 @Repository
 public interface MovieRepository extends MongoRepository<Movie, String> {
-
     @Query("{'genre': ?0}")
     List<MovieServiceClient.MovieDto> findAllByGenre(String genre);
 

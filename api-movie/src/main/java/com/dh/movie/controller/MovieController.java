@@ -14,7 +14,6 @@ public class MovieController {
 
 
     private final MovieService movieService;
-
     private final MovieCreadaEventProducer movieCreadaEventProducer;
 
     public MovieController(MovieService movieService, MovieCreadaEventProducer movieCreadaEventProducer) {
@@ -31,6 +30,5 @@ public class MovieController {
     ResponseEntity<Movie> saveMovie(@RequestBody Movie movie) {
         return ResponseEntity.ok().body(movieService.save(movie));
     }
-
 
 }

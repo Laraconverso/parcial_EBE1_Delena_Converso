@@ -14,7 +14,6 @@ public class MovieService {
 
 
     private final MovieRepository movieRepository;
-
     private final MovieCreadaEventProducer movieCreadaEventProducer;
 
     public MovieService(MovieRepository movieRepository, MovieCreadaEventProducer movieCreadaEventProducer) {
@@ -26,13 +25,11 @@ public class MovieService {
         return movieRepository.findByGenre(genre);
     }
 
-
     public Movie save(Movie movie) {
         movieRepository.save(movie);
         movieCreadaEventProducer.publishMovieCreada(new MovieCreadaEventProducer.Data(movie.getId(),movie.getName(), movie.getGenre()));
         System.out.println("Guardando pelicula: " + movie.getName());
         return movie;
     }
-
 
 }

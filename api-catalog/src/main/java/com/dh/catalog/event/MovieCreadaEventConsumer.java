@@ -30,7 +30,6 @@ public class MovieCreadaEventConsumer {
         movieRepository.save(movie);
     }
 
-
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
